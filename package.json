@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/antoinejaussoin/c4c/issues"
   },
-  "homepage": "https://github.com/antoinejaussoin/c4c#readme"
+  "homepage": "https://github.com/antoinejaussoin/c4c#readme",
+  "dependencies": {
+    "download": "^6.2.2",
+    "moment": "^2.18.1",
+    "path-exists": "^3.0.0"
+  }
 }
