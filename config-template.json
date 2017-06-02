@@ -1,6 +1,7 @@
 {
     "server": "localhost",
     "port": 3306,
+    "database": "c4c",
     "user": "c4c",
     "password": ""
 }
