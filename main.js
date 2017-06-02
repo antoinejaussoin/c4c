@@ -2,7 +2,7 @@ const download = require('./download');
 const downloadIndex = require('./download-index-file');
 const moment = require('moment');
 const parseFiling = require('./parse-filing');
-const readFile = require('./read-file');
+const readFiling = require('./read-filing');
 const writeFile = require('./write-file');
 const extract = require('./extract');
 
@@ -40,12 +40,11 @@ downloadIndex().then(content => {
 });
 
 const workflow = (indexData) => () =>
-    download(indexData.URL, indexData.EIN)
-    .then(readFile)
+    download(indexData)
+    .then(readFiling)
     .then(parseFiling)
     .then(extract)
-    // .then(content => writeFile(__dirname+'/temp.json', JSON.stringify(content, null, 2)))
-    .then(parsed => {
-        console.log(JSON.stringify(parsed, null, 2));
+    .then(data => {
+        console.log(JSON.stringify(data.parsed, null, 2));
     })
     .catch(console.error);
