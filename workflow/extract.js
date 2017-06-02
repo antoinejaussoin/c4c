@@ -1,6 +1,6 @@
-const safeGet = require('safe-get');
+import safeGet from 'safe-get';
 
-module.exports = (data) => {
+export default (data) => {
     const get = path => safeGet(data.json, 'Return.ReturnData[0].IRS990[0].' + path);
 
     const parsed = {};

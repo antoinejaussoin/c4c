@@ -1,9 +1,9 @@
-const download = require('download');
-const fs = require('fs');
-const path = require('path');
-const pathExists = require('path-exists');
+import download from 'download';
+import fs from 'fs';
+import path from 'path';
+import pathExists from 'path-exists';
 
-module.exports = (indexData) => {
+export default (indexData) => {
     const directory = path.resolve(__dirname, '..', 'data');
     const filename = indexData.EIN + '.xml';
     const filingFile = path.resolve(directory, filename);

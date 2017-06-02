@@ -1,13 +1,13 @@
-const moment = require('moment');
-const Sequelize = require('sequelize');
-const config = require('./config.json');
+import moment from 'moment';
+import Sequelize from 'sequelize';
+import config from './config.json';
 
-const download = require('./workflow/download');
-const downloadIndex = require('./download-index-file');
-const parseFiling = require('./workflow/parse-filing');
-const readFiling = require('./workflow/read-filing');
-const writeFile = require('./workflow/write-file');
-const extract = require('./workflow/extract');
+import download from './workflow/download';
+import downloadIndex from './download-index-file';
+import parseFiling from './workflow/parse-filing';
+import readFiling from './workflow/read-filing';
+import writeFile from './workflow/write-file';
+import extract from './workflow/extract';
 import store from './workflow/store';
 import initialiseModels from './database/models';
 
