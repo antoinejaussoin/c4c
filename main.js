@@ -1,6 +1,10 @@
 const download = require('./download');
 const downloadIndex = require('./download-index-file');
 const moment = require('moment');
+const parseFiling = require('./parse-filing');
+const readFile = require('./read-file');
+const writeFile = require('./write-file');
+const extract = require('./extract');
 
 console.log('C4C Data ripper');
 
@@ -13,7 +17,7 @@ downloadIndex().then(content => {
     console.log('Example: ');
     console.log(JSON.stringify(indexData[0], null, 2));
 
-    const promises = indexData.map(data => download(data.URL, data.EIN));
+    const promises = indexData.map(workflow);
     let currentIndex = 0;
     const start = moment();
 
@@ -27,10 +31,21 @@ downloadIndex().then(content => {
             const avg = elapsed / (currentIndex + 1);
             const left = (indexData.length - currentIndex) * avg;
             const leftMoment = moment.duration(left);
-            console.log('Remaining: ', leftMoment.humanize());
+            // console.log('Remaining: ', leftMoment.humanize());
             currentIndex++;
             downloadOne(promises[currentIndex]);
         }
         promise().then(done, done);
     }
 });
+
+const workflow = (indexData) => () =>
+    download(indexData.URL, indexData.EIN)
+    .then(readFile)
+    .then(parseFiling)
+    .then(extract)
+    // .then(content => writeFile(__dirname+'/temp.json', JSON.stringify(content, null, 2)))
+    .then(parsed => {
+        console.log(JSON.stringify(parsed, null, 2));
+    })
+    .catch(console.error);
