@@ -15,7 +15,8 @@ console.log('C4C Data ripper');
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
     host: config.server,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
 });
 const { Charity } = initialiseModels(sequelize);
 
@@ -43,9 +44,11 @@ sequelize.sync({force: true}).then(() => {
                 const avg = elapsed / (currentIndex + 1);
                 const left = (indexData.length - currentIndex) * avg;
                 const leftMoment = moment.duration(left);
-                // console.log('Remaining: ', leftMoment.humanize());
+                console.log('Remaining: ', leftMoment.humanize());
                 currentIndex++;
-                downloadOne(promises[currentIndex]);
+                if (currentIndex < promises.length) {
+                    downloadOne(promises[currentIndex]);
+                }
             }
             promise().then(done, done);
         }
@@ -58,7 +61,7 @@ sequelize.sync({force: true}).then(() => {
         .then(extract)
         .then(store(Charity))
         .then(data => {
-            console.log('Saved ', data.parsed.name);
+            // console.log('Saved ', data.parsed.name);
         })
         .catch(console.error);
 });
