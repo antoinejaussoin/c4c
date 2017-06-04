@@ -25,3 +25,8 @@ It will:
 ## Misc
 
 Data file: https://aws.amazon.com/public-datasets/irs-990/
+
+NCEE Categories: http://nccs.urban.org/classification/national-taxonomy-exempt-entities
+
+Cause IQ
+https://www.causeiq.com/help/segmenting_markets/find-organizations-according-their-missions-and-programs/

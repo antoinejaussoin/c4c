@@ -8,5 +8,5 @@ export default (sequelize) => sequelize.define('charity', {
     activity: Sequelize.STRING,
     mission: Sequelize.STRING,
     formation: Sequelize.STRING,
-    totalRevenue: Sequelize.DECIMAL(10, 2),
+    totalRevenue: Sequelize.DECIMAL(10, 2)
 });
