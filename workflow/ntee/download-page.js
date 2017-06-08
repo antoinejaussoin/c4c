@@ -29,7 +29,6 @@ export default (data) => new Promise((resolve, reject) => {
         console.error('Fetching page error: ', error);
         return reject(error);
       }
-      console.log('Success: ', body);
       data.nteeBody = body;
 
       writeFile(data.nteeFile, body).then(() => {

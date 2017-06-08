@@ -24,18 +24,23 @@ export default (data) => new Promise((resolve) => {
   resolve(data);
 });
 
-const nteeRegex = /([A-Z])(\d+)\s-\s(.*)/g;
+const nteeRegex = /([A-Z])(\d*)\s-\s(.*)/;
 const improve = parsed => {
-  const regexResults = nteeRegex.exec(parsed.ntee);
+  const ntee = parsed.ntee.trim();
+  const regexResults = ntee.length ? nteeRegex.exec(ntee) : [];
+  if (regexResults == null) {
+    console.error('Regex error: ', '"' + ntee + '"', JSON.stringify(ntee));
+  }
   return {
     ...parsed,
+    ntee,
     taxPeriod: Number(parsed.taxPeriod),
     ruleDate: Number(parsed.ruleDate),
     totalRevenue: Number(parsed.totalRevenue.replace(/,/g, '')),
     totalAssets: Number(parsed.totalAssets.replace(/,/g, '')),
-    nteeCategory: regexResults[1],
-    nteeSubCategory: regexResults[2],
-    nteeCategoryName: regexResults[3],
+    nteeCategory: regexResults.length > 3 ? regexResults[1] : '',
+    nteeSubCategory: regexResults.length > 3 ? regexResults[2] : '',
+    nteeCategoryName: regexResults.length > 3 ? regexResults[3] : '',
     irsSubsection: parsed.irsSubsection.trim()
   };
 };
