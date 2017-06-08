@@ -73,7 +73,7 @@ sequelize.sync({force: true}).then(() => {
 
     const displayProgress = (timings, current, total) => {
         if (timings.length > 10) {
-            timings.slice(timings.length - 10, 10);
+            timings.splice(0, timings.length - 10);
         }
         const avg = mean(timings);
         const remaining = avg * (total - current);
