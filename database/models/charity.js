@@ -2,11 +2,11 @@ import Sequelize from 'sequelize';
 
 export default (sequelize) => sequelize.define('charity', {
     name: Sequelize.STRING,
-    description: Sequelize.STRING,
+    description: Sequelize.TEXT,
     EIN: Sequelize.STRING,
     DLN: Sequelize.STRING,
-    activity: Sequelize.STRING,
-    mission: Sequelize.STRING,
+    activity: Sequelize.TEXT,
+    mission: Sequelize.TEXT,
     formation: Sequelize.STRING,
-    totalRevenue: Sequelize.DECIMAL(10, 2)
+    totalRevenue: Sequelize.DECIMAL(16, 2)
 });
