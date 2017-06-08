@@ -12,7 +12,7 @@ import store from './workflow/store';
 import ntee from './workflow/ntee/retrieve-ntee';
 import initialiseModels from './database/models';
 
-const THREADS = 1;
+const THREADS = 30;
 
 console.log('C4C Data ripper');
 
@@ -34,7 +34,7 @@ sequelize.sync({force: true}).then(() => {
         console.log(JSON.stringify(indexData[0], null, 2));
 
         const promises = indexData.map(workflow)
-            .filter((item, index) => index === 0) // temp filtering to 1 for testing
+            // .filter((item, index) => index === 0) // temp filtering to 1 for testing
         let currentIndex = 0;
         const start = moment();
 
