@@ -3,5 +3,6 @@
     "port": 3306,
     "database": "c4c",
     "user": "c4c",
-    "password": ""
+    "password": "",
+    "ntee_cookie": "PHPSESSID=uigf6dtq8t3qch7gggrmfm1u82; _gat=1; dbstate=nccs; _ga=GA1.2.388800371.1496913330; _gid=GA1.2.1396851998.1496913330"
 }

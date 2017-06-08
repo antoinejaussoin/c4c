@@ -10,8 +10,20 @@ Change for charity
 
 - Clone the repository: `git clone git@github.com:antoinejaussoin/c4c.git`
 - Install the dependencies: `npm i` (or if you know what Yarn is, `yarn`)
-- Copy `config_template.json` to `config.json` and fill the relevant information
+- Copy `config_template.json` to `config.json` and fill the relevant information (see how to get a new NTEE website cookie if required below)
 - Run the program: `npm start`
+
+
+## How to update the NTEE website cookie
+
+The cookie that's already in `config-template.json` is valid until **July 5th**. I'll try to keep it up to date, so you probably don't need to do the below.
+
+The NTEE codes are downloaded from http://nccsweb.urban.org/PubApps/search.php, which requires a cookie to work.
+- Go to the website: http://nccsweb.urban.org/PubApps/search.php
+- Open the Chrome dev tools
+- Make a search
+- Retrieve the cookie and paste it in config.json
+
 
 ## What this will do
 

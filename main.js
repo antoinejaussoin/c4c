@@ -9,7 +9,10 @@ import readFiling from './workflow/read-filing';
 import writeFile from './workflow/write-file';
 import extract from './workflow/extract';
 import store from './workflow/store';
+import ntee from './workflow/ntee/retrieve-ntee';
 import initialiseModels from './database/models';
+
+const THREADS = 1;
 
 console.log('C4C Data ripper');
 
@@ -30,11 +33,12 @@ sequelize.sync({force: true}).then(() => {
         console.log('Example: ');
         console.log(JSON.stringify(indexData[0], null, 2));
 
-        const promises = indexData.map(workflow);
+        const promises = indexData.map(workflow)
+            .filter((item, index) => index === 0) // temp filtering to 1 for testing
         let currentIndex = 0;
         const start = moment();
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < THREADS; i++) {
             downloadOne(promises[i]);
         }
 
@@ -58,6 +62,7 @@ sequelize.sync({force: true}).then(() => {
         download(indexData)
         .then(readFiling)
         .then(parseFiling)
+        .then(ntee)
         .then(extract)
         .then(store(Charity))
         .then(data => {
