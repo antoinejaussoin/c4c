@@ -1,5 +1,8 @@
 import moment from 'moment';
 import Sequelize from 'sequelize';
+import drop from 'lodash/drop';
+import mean from 'lodash/mean';
+import chalk from 'chalk';
 import config from './config.json';
 
 import download from './workflow/download';
@@ -31,26 +34,23 @@ sequelize.sync({force: true}).then(() => {
 
         console.log('Records: ', indexData.length);
 
-        console.log('Example: ');
-        console.log(JSON.stringify(indexData[0], null, 2));
-
         const promises = indexData.map(workflow)
             // .filter((item, index) => index === 0) // temp filtering to 1 for testing
         let currentIndex = 0;
-        const start = moment();
 
+        const timings = [];
+        
         for (let i = 0; i < THREADS; i++) {
             downloadOne(promises[i]);
         }
 
         function downloadOne(promise) {
+            const start = moment();
             const done = (err) => {
                 const elapsed = moment().diff(start);
-                const avg = elapsed / (currentIndex + 1);
-                const left = (indexData.length - currentIndex) * avg;
-                const leftMoment = moment.duration(left);
-                console.log('Remaining: ', leftMoment.humanize());
+                timings.push(elapsed);
                 currentIndex++;
+                displayProgress(timings, currentIndex, indexData.length);
                 if (currentIndex < promises.length) {
                     downloadOne(promises[currentIndex]);
                 }
@@ -70,4 +70,25 @@ sequelize.sync({force: true}).then(() => {
             // console.log('Saved ', data.parsed.name);
         })
         .catch(console.error);
+
+    const displayProgress = (timings, current, total) => {
+        if (timings.length > 10) {
+            timings.slice(timings.length - 10, 10);
+        }
+        const avg = mean(timings);
+        const remaining = avg * (total - current);
+        const percentage = Math.round(current / total * 10000) / 100;
+        console.log(
+            chalk.grey('Progress: ') +
+            chalk.white(current) +
+            chalk.grey(' / ') +
+            chalk.white(total) +
+            '	' +
+            chalk.red(percentage + '%') +
+            '	' +
+            chalk.grey(' (estimated: ') +
+            chalk.yellow(moment.duration(remaining).humanize()) +
+            chalk.grey(')')
+        );
+    };
 });
