@@ -12,9 +12,10 @@ import store from './workflow/store';
 import ntee from './workflow/ntee/retrieve-ntee';
 import initialiseModels from './database/models';
 
-const THREADS = 30;
+const THREADS = 15;
 
 console.log('C4C Data ripper');
+console.log('Take a cup of coffee, this is going to take some time.');
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
     host: config.server,

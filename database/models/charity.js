@@ -9,6 +9,7 @@ export default (sequelize) => sequelize.define('charity', {
     mission: Sequelize.TEXT,
     formation: Sequelize.STRING,
     totalRevenue: Sequelize.DECIMAL(16, 2),
+    nteeCategory: Sequelize.STRING,
     nteeSubCategory: Sequelize.STRING,
     nteeCategoryName: Sequelize.STRING,
     nteeCharityName: Sequelize.STRING,
