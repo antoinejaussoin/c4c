@@ -15,10 +15,14 @@ import store from './workflow/store';
 import ntee from './workflow/ntee/retrieve-ntee';
 import initialiseModels from './database/models';
 
-const THREADS = 15;
+const THREADS = 20;
 
-console.log('C4C Data ripper');
-console.log('Take a cup of coffee, this is going to take some time.');
+console.log(chalk.green('--------------------------------------------------'));
+console.log(chalk.red('          Change for Charity') + chalk.grey(' - ') + chalk.yellow('Data ripper'));
+console.log(chalk.green('--------------------------------------------------'));
+console.log('');
+console.log('\u2615 \u2615 \u2615  Take a cup of coffee, this is going to take some time.  \u2615 \u2615 \u2615');
+console.log('');
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
     host: config.server,
@@ -31,9 +35,6 @@ sequelize.sync({force: true}).then(() => {
         downloadIndex().then(content => {
 
         const indexData = content['Filings2017'];
-
-        console.log('Records: ', indexData.length);
-
         const promises = indexData.map(workflow)
             // .filter((item, index) => index === 0) // temp filtering to 1 for testing
         let currentIndex = 0;
@@ -76,7 +77,7 @@ sequelize.sync({force: true}).then(() => {
             timings.splice(0, timings.length - 10);
         }
         const avg = mean(timings);
-        const remaining = avg * (total - current);
+        const remaining = (avg / THREADS) * (total - current);
         const percentage = Math.round(current / total * 10000) / 100;
         console.log(
             chalk.grey('Progress: ') +
