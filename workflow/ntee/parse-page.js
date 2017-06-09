@@ -24,7 +24,7 @@ export default (data) => new Promise((resolve) => {
   resolve(data);
 });
 
-const nteeRegex = /([A-Z])(\d*)\s-\s(.*)/;
+const nteeRegex = /([A-Z])(\d*)\s-\s?(.*)/;
 const improve = parsed => {
   const ntee = parsed.ntee.trim();
   const regexResults = ntee.length ? nteeRegex.exec(ntee) : [];
@@ -38,8 +38,8 @@ const improve = parsed => {
     ruleDate: Number(parsed.ruleDate),
     totalRevenue: Number(parsed.totalRevenue.replace(/,/g, '')),
     totalAssets: Number(parsed.totalAssets.replace(/,/g, '')),
-    nteeCategory: regexResults.length > 3 ? regexResults[1] : '',
-    nteeSubCategory: regexResults.length > 3 ? regexResults[2] : '',
+    nteeCategory: regexResults.length > 1 ? regexResults[1] : '',
+    nteeSubCategory: regexResults.length > 2 ? regexResults[2] : '',
     nteeCategoryName: regexResults.length > 3 ? regexResults[3] : '',
     irsSubsection: parsed.irsSubsection.trim()
   };
