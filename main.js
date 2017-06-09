@@ -21,7 +21,7 @@ console.log(chalk.green('--------------------------------------------------'));
 console.log(chalk.red('          Change for Charity') + chalk.grey(' - ') + chalk.yellow('Data ripper'));
 console.log(chalk.green('--------------------------------------------------'));
 console.log('');
-console.log('\u2615 \u2615 \u2615  Take a cup of coffee, this is going to take some time.  \u2615 \u2615 \u2615');
+console.log('\u2615  \u2615  \u2615  Take a cup of coffee, this is going to take some time.  \u2615  \u2615  \u2615');
 console.log('');
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
