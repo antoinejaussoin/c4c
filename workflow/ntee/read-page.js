@@ -1,6 +1,6 @@
-const fs = require('fs');
+import fs from 'fs';
 
-module.exports = data => new Promise((resolve, reject) => {
+export default data => new Promise((resolve, reject) => {
     fs.readFile(data.nteeFile, 'utf8', (error, nteeBody) => {
         if (error) {
             return reject({ ...data, error });

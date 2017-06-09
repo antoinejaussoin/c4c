@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 module.exports = data => new Promise((resolve, reject) => {
     fs.readFile(data.filingFile, 'utf8', (error, xml) => {

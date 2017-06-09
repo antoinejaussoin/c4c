@@ -1,6 +1,6 @@
-const { parseString } = require('xml2js');
+import { parseString } from 'xml2js';
 
-module.exports = data => new Promise((resolve, reject) => {
+export default data => new Promise((resolve, reject) => {
     parseString(data.xml, (error, json) => {
         if (error) {
             return reject(error);

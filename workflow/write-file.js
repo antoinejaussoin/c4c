@@ -1,6 +1,6 @@
-const fs = require('fs');
+import fs from 'fs';
 
-module.exports = (fileName, content) => new Promise((resolve, reject) => {
+export default (fileName, content) => new Promise((resolve, reject) => {
     fs.writeFile(fileName, content, 'utf8', (err, result) => {
         if (err) {
             return reject(err);
