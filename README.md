@@ -10,7 +10,7 @@ Change for charity
 
 - Clone the repository: `git clone git@github.com:antoinejaussoin/c4c.git`
 - Install the dependencies: `npm i` (or if you know what Yarn is, `yarn`)
-- Copy `config_template.json` to `config.json` and fill the relevant information (see how to get a new NTEE website cookie if required below)
+- Copy `database.template.json` to `database.json` and fill the relevant information (see how to get a new NTEE website cookie if required below)
 - Run the program: `npm start`
 
 

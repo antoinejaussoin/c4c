@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 import drop from 'lodash/drop';
 import chalk from 'chalk';
 import displayProgress from './display-progress';
-import config from './config.json';
+import config from './database.json';
 
 import download from './workflow/download';
 import downloadIndex from './download-index-file';
@@ -13,7 +13,7 @@ import writeFile from './workflow/write-file';
 import extract from './workflow/extract';
 import store from './workflow/store';
 import ntee from './workflow/ntee/retrieve-ntee';
-import initialiseModels from './database/models';
+import db from './database/models';
 
 const THREADS = 20;
 
@@ -24,14 +24,18 @@ console.log('');
 console.log('\u2615  \u2615  \u2615  Take a cup of coffee, this is going to take some time.  \u2615  \u2615  \u2615');
 console.log('');
 
-const sequelize = new Sequelize(config.database, config.user, config.password, {
-    host: config.server,
-    dialect: 'mysql',
-    logging: false
-});
-const { Charity } = initialiseModels(sequelize);
+const productionConfig = config.production;
 
-sequelize.sync({force: true}).then(() => {
+// const sequelize = new Sequelize(productionConfig.database, productionConfig.user, productionConfig.password, {
+//     host: productionConfig.host,
+//     dialect: 'mysql',
+//     logging: false
+// });
+
+db.init();
+const { Charity } = db;
+
+db.sequelize.sync({force: true}).then(() => {
         downloadIndex().then(content => {
 
         const indexData = content['Filings2017'];

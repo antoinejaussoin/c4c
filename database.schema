@@ -1,14 +1,18 @@
 # https://app.quickdatabasediagrams.com/#/schema/RYUxQVI1K0emj-462lEpdA
 
+
 # Charity doesn't have much appart from name, address
 # and EIN number
 # All the data will be linked to the fillings
 Charity
 -
 id PK int
-ein int
-address string
-name string
+ein nvarchar(255)
+dln nvarchar(255)
+address nvarchar(255)
+name nvarchar(255)
+description nvarchar(255)
+subcategory_id int FK >- SubCategory.id
 
 # All the data will be linked to a filling, for a specific year
 Filling
@@ -18,30 +22,46 @@ year int
 charity_id int FK >- Charity.id
 preparer_id int FK >- Firm.id
 
+# NTEE Category
+Category
+-
+id PK int
+name nvarchar(255)
+code nvarchar(5)
+
+# NTEE Sub-category
+SubCategory
+-
+id PK int
+category_id int FK >- Category.id
+name nvarchar(255)
+code nvarchar(5)
+
+
 # This represents a company (accountant firm for instance)
 Firm
 -
 id PK int
-name string
+name nvarchar(255)
 
 # This represent an individual (a board member for instance)
 Individual
 -
 id PK int
-firstName string
-lastName string
+firstName nvarchar(255)
+lastName nvarchar(255)
 
 # This represent an IRS region (as defined in the XML)
 Region
 -
 id PK int
-name string
+name nvarchar(255)
 
 # This represent a individual contractor
 Contractor
 -
 id PK int
-name string
+name nvarchar(255)
 firm_id int FK >- Firm.id
 
 # Many to many join table
@@ -75,7 +95,7 @@ filling_id int FK >- Filling.id
 AssetType
 -
 id PK int
-name string
+name nvarchar(255)
 
 Liability
 -
@@ -86,7 +106,7 @@ filling_id int FK >- Filling.id
 LiabilityType
 -
 id PK int
-name string
+name nvarchar(255)
 
 Revenue
 -
@@ -97,13 +117,13 @@ filling_id int FK >- Filling.id
 RevenueType
 -
 id PK int
-name string
+name nvarchar(255)
 
 Grant
 -
 id PK int
 filling_id int FK >- Filling.id
-name string
+name nvarchar(255)
 
 Expense
 -
@@ -114,18 +134,18 @@ filling_id int FK >- Filling.id
 ExpenseType
 -
 id PK int
-name string
+name nvarchar(255)
 
 [settings]
-Zoom 80
-Position 0 0
+Zoom 70
+Position 78 213
 
 [layout]
 Contractor 43 266
 
-Filling 605 443
+Filling 666 516
 
-Charity 619 277
+Charity 620 237
 
 Firm 69 484
 
@@ -158,3 +178,7 @@ Liability 981 791
 LiabilityType 1202 798
 
 Grant 978 951
+
+SubCategory 648 70
+
+Category 643 -106
