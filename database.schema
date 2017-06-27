@@ -1,0 +1,160 @@
+# https://app.quickdatabasediagrams.com/#/schema/RYUxQVI1K0emj-462lEpdA
+
+# Charity doesn't have much appart from name, address
+# and EIN number
+# All the data will be linked to the fillings
+Charity
+-
+id PK int
+ein int
+address string
+name string
+
+# All the data will be linked to a filling, for a specific year
+Filling
+-
+id PK int
+year int
+charity_id int FK >- Charity.id
+preparer_id int FK >- Firm.id
+
+# This represents a company (accountant firm for instance)
+Firm
+-
+id PK int
+name string
+
+# This represent an individual (a board member for instance)
+Individual
+-
+id PK int
+firstName string
+lastName string
+
+# This represent an IRS region (as defined in the XML)
+Region
+-
+id PK int
+name string
+
+# This represent a individual contractor
+Contractor
+-
+id PK int
+name string
+firm_id int FK >- Firm.id
+
+# Many to many join table
+ContractorFilling
+-
+id PK int
+contractor_id int FK >- Contractor.id
+filling_id int FK >- Filling.id
+
+# This is an activity (such as fundraising dinner etc.)
+Activity
+-
+id PK int
+description text
+filling_id int FK >- Filling.id
+region_id int FK >- Region.id
+
+# Board member: Link between an individual and a filling
+BoardMember
+-
+id PK int
+individual_id int FK >- Individual.id
+filling_id int FK >- Filling.id
+
+Asset
+-
+id PK int
+type_id int FK >- AssetType.id
+filling_id int FK >- Filling.id
+
+AssetType
+-
+id PK int
+name string
+
+Liability
+-
+id PK int
+type_id int FK >- LiabilityType.id
+filling_id int FK >- Filling.id
+
+LiabilityType
+-
+id PK int
+name string
+
+Revenue
+-
+id PK int
+type_id int FK >- RevenueType.id
+filling_id int FK >- Filling.id
+
+RevenueType
+-
+id PK int
+name string
+
+Grant
+-
+id PK int
+filling_id int FK >- Filling.id
+name string
+
+Expense
+-
+id PK int
+type_id int FK >- ExpenseType.id
+filling_id int FK >- Filling.id
+
+ExpenseType
+-
+id PK int
+name string
+
+[settings]
+Zoom 80
+Position 0 0
+
+[layout]
+Contractor 43 266
+
+Filling 605 443
+
+Charity 619 277
+
+Firm 69 484
+
+Region 1193 187
+
+Activity 964 152
+
+Individual 84 685
+
+ContractorFilling 276 127
+
+BoardMember 327 658
+
+
+
+Asset 972 341
+
+AssetType 1191 356
+
+Expense 973 484
+
+ExpenseType 1191 487
+
+RevenueType 1199 650
+
+Revenue 977 641
+
+Liability 981 791
+
+LiabilityType 1202 798
+
+Grant 978 951
